@@ -1,6 +1,6 @@
-import { ITaskRepository } from "../../core/ITaskRepository"
-import { Task } from "../../core/Task"
-import { DateRange } from "../../core/DateRange"
+import { ITaskRepository } from "../../../core/ITaskRepository"
+import { Task } from "../../../core/Task"
+import { DateRange } from "../../../core/DateRange"
 
 export class FakeTaskRepository implements ITaskRepository {
   public collection: Task[] = []

@@ -1,7 +1,7 @@
 import { Prisma, Tasks } from "@prisma/client"
-import { Task } from "../../core/Task"
-import { Deadline } from "../../core/Deadline"
-import { TaskTitle } from "../../core/TaskTitle"
+import { Task } from "../../../core/Task"
+import { Deadline } from "../../../core/Deadline"
+import { TaskTitle } from "../../../core/TaskTitle"
 
 export class TaskMapper {
   public static toDomain(task: Tasks): Task {

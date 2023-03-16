@@ -5,7 +5,7 @@ import { TestCreateTaskRequestBuilder } from "../utils/TestCreateTaskRequestBuil
 import { ITaskDriver } from "./ITaskDriver"
 import { Server } from "http"
 import { ApiServer } from "../../adapters/in/http/ApiServer"
-import { TaskRepository } from "../../adapters/out/TaskRepository"
+import { TaskRepository } from "../../adapters/out/persistence/TaskRepository"
 import { CreateTaskUseCase } from "../../core/CreateTaskUseCase"
 import { TaskController } from "../../adapters/in/http/TaskController"
 import { TaskTitle } from "../../core/TaskTitle"

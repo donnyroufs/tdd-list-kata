@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client"
-import { ITaskRepository } from "../../core/ITaskRepository"
-import { Task } from "../../core/Task"
+import { ITaskRepository } from "../../../core/ITaskRepository"
+import { Task } from "../../../core/Task"
 import { TaskMapper } from "./TaskMapper"
-import { DateRange } from "../../core/DateRange"
+import { DateRange } from "../../../core/DateRange"
 
 export class TaskRepository implements ITaskRepository {
   public constructor(private readonly _client: PrismaClient) {}

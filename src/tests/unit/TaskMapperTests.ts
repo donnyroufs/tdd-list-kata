@@ -1,6 +1,6 @@
 import { Describe, Test } from "@jest-decorated/core"
 import { TestTaskBuilder } from "../utils/TestTaskBuilder"
-import { TaskMapper } from "../../adapters/out/TaskMapper"
+import { TaskMapper } from "../../adapters/out/persistence/TaskMapper"
 import { Tasks } from "@prisma/client"
 import { Task } from "../../core/Task"
 import { TaskTitle } from "../../core/TaskTitle"

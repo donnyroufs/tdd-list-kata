@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client"
 import { TaskController } from "./adapters/in/http/TaskController"
-import { TaskRepository } from "./adapters/out/TaskRepository"
+import { TaskRepository } from "./adapters/out/persistence/TaskRepository"
 import { CreateTaskUseCase } from "./core/CreateTaskUseCase"
 import { ApiServer } from "./adapters/in/http/ApiServer"
 import { DateService } from "./adapters/out/DateService"

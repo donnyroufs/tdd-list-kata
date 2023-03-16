@@ -1,5 +1,5 @@
 import { Task } from "../../core/Task"
-import { FakeTaskRepository } from "../../adapters/out/FakeTaskRepository"
+import { FakeTaskRepository } from "../../adapters/out/persistence/FakeTaskRepository"
 import { ITaskDriver } from "./ITaskDriver"
 import { CreateTaskUseCase } from "../../core/CreateTaskUseCase"
 import { TestCreateTaskRequestBuilder } from "../utils/TestCreateTaskRequestBuilder"
