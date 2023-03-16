@@ -1,37 +1,30 @@
-import {
-  AfterAll,
-  AfterEach,
-  BeforeEach,
-  Describe,
-  Test,
-} from "@jest-decorated/core"
+import { AfterAll, BeforeEach, Describe, Test } from "@jest-decorated/core"
 import { PrismaClient } from "@prisma/client"
-import { TaskRepository } from "../../adapters/out/TaskRepository"
-import { CreateTaskUseCase } from "../../core/CreateTaskUseCase"
-import { ICreateTask } from "../ICreateTask"
-import { ITestClient } from "../utils/ITestClient"
-import { RealTestClient } from "../utils/RealTestClient"
-import { TestCreateTaskRequestBuilder } from "../utils/TestCreateTaskRequestBuilder"
-import { TestDatabaseClient } from "../utils/TestDatabaseClient"
-import { TestTaskBuilder } from "../utils/TestTaskBuilder"
+import { TaskRepository } from "../../../adapters/out/TaskRepository"
+import { CreateTaskUseCase } from "../../../core/CreateTaskUseCase"
+import { ICreateTask } from "../../ICreateTask"
+import { ITestClient } from "../../utils/ITestClient"
+import { RealTestClient } from "../../utils/RealTestClient"
+import { TestCreateTaskRequestBuilder } from "../../utils/TestCreateTaskRequestBuilder"
+import { TestTaskBuilder } from "../../utils/TestTaskBuilder"
 
 @Describe()
 export class CreateTaskShould implements ICreateTask {
-  private _client: PrismaClient
-  private _db: ITestClient
+  private _prisma: PrismaClient
+  private _testClient: ITestClient
   private _sut: CreateTaskUseCase
 
   @BeforeEach()
   public async setup(): Promise<void> {
-    this._client = new PrismaClient()
-    this._db = new RealTestClient(this._client)
-    this._sut = new CreateTaskUseCase(new TaskRepository(this._client))
-    await this._client.tasks.deleteMany()
+    this._prisma = new PrismaClient()
+    this._testClient = new RealTestClient(this._prisma)
+    this._sut = new CreateTaskUseCase(new TaskRepository(this._prisma))
+    await this._testClient.clearTasks()
   }
 
   @AfterAll()
   public async dispose(): Promise<void> {
-    await this._client.$disconnect()
+    await this._testClient.dispose()
   }
 
   @Test()
@@ -43,7 +36,7 @@ export class CreateTaskShould implements ICreateTask {
     await this._sut.execute(request)
 
     const expectedTask = new TestTaskBuilder().withTitle(request.title).build()
-    const confirmation = await this._db.getTasks()
+    const confirmation = await this._testClient.getTasks()
 
     expect(confirmation).toStrictEqual([expectedTask])
   }
@@ -62,7 +55,7 @@ export class CreateTaskShould implements ICreateTask {
       .withTitle(request.title)
       .withDeadline(request.date!)
       .build()
-    const confirmation = await this._db.getTasks()
+    const confirmation = await this._testClient.getTasks()
 
     expect(confirmation).toStrictEqual([expectedTask])
   }

@@ -13,4 +13,12 @@ export class RealTestClient implements ITestClient {
         new Task(task.title, task.deadline === null ? undefined : task.deadline)
     )
   }
+
+  public async dispose(): Promise<void> {
+    await this._client.$disconnect()
+  }
+
+  public async clearTasks(): Promise<void> {
+    await this._client.tasks.deleteMany()
+  }
 }

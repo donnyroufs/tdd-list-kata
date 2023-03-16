@@ -6,8 +6,14 @@ export class TestDatabaseClient implements ITestClient {
   public constructor(private readonly _taskRepository: FakeTaskRepository) {}
 
   public async getTasks(): Promise<Task[]> {
-    return this._taskRepository._collection
+    return this._taskRepository.collection
   }
+
+  public async clearTasks(): Promise<void> {
+    this._taskRepository.collection = []
+  }
+
+  public async dispose(): Promise<void> {}
 }
 
 
