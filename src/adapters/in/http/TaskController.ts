@@ -3,7 +3,6 @@ import {
   CreateTaskRequest,
   CreateTaskUseCase,
 } from "../../../core/CreateTaskUseCase"
-import { Task } from "../../../core/Task"
 import { FindTasksDueTodayUseCase } from "../../../core/FindTasksDueTodayUseCase"
 
 export class TaskController {

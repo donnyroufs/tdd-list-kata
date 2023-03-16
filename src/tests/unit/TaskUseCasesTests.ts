@@ -3,7 +3,7 @@ import { BaseTestsForTasks } from "../BaseTestsForTasks"
 import { FakeTaskDriver } from "../drivers/FakeTaskDriver"
 
 @Describe()
-export class CreateTaskShould extends BaseTestsForTasks {
+export class TaskUsecasesShould extends BaseTestsForTasks {
   protected override driver = new FakeTaskDriver()
 
   @BeforeEach()

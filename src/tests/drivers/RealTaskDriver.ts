@@ -14,6 +14,7 @@ import { FindTasksDueTodayUseCase } from "../../core/FindTasksDueTodayUseCase"
 import { IDateService } from "../../core/IDateService"
 import { mock, mockClear, MockProxy } from "jest-mock-extended"
 import { TaskDto } from "../../core/TaskDto"
+import { TaskMapper } from "../../adapters/out/persistence/TaskMapper"
 
 export class RealTaskDriver implements ITaskDriver {
   private static TODAYS_DATE = new Date()
@@ -38,13 +39,8 @@ export class RealTaskDriver implements ITaskDriver {
   }
 
   public async getTasks(): Promise<Task[]> {
-    return (await this._prisma.tasks.findMany()).map(
-      (task) =>
-        new Task(
-          new TaskTitle(task.title),
-          task.deadline !== null ? new Deadline(task.deadline) : undefined
-        )
-    )
+    const tasks = await this._prisma.tasks.findMany()
+    return tasks.map(TaskMapper.toDomain)
   }
 
   public async addTaskWithDeadline(

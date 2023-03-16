@@ -9,7 +9,7 @@ import { BaseTestsForTasks } from "../../BaseTestsForTasks"
 import { RealTaskDriver } from "../../drivers/RealTaskDriver"
 
 @Describe()
-export class CreateTaskShould extends BaseTestsForTasks {
+export class TaskControllerShould extends BaseTestsForTasks {
   protected override driver = new RealTaskDriver()
 
   @BeforeAll()
