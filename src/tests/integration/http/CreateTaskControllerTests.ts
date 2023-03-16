@@ -10,17 +10,14 @@ import { Server } from "http"
 import api from "supertest"
 import { TaskController } from "../../../adapters/in/http/TaskController"
 import { TaskRepository } from "../../../adapters/out/TaskRepository"
-import {
-  CreateTaskRequest,
-  CreateTaskUseCase,
-} from "../../../core/CreateTaskUseCase"
+import { CreateTaskUseCase } from "../../../core/CreateTaskUseCase"
 import { Task } from "../../../core/Task"
 import { ICreateTask } from "../../ICreateTask"
 import { ITestClient } from "../../utils/ITestClient"
 import { RealTestClient } from "../../utils/RealTestClient"
 import { TestCreateTaskRequestBuilder } from "../../utils/TestCreateTaskRequestBuilder"
 import { TestTaskBuilder } from "../../utils/TestTaskBuilder"
-import { ApiServer } from "./ApiServer"
+import { ApiServer } from "../../../adapters/in/http/ApiServer"
 
 @Describe()
 export class CreateTaskShould implements ICreateTask {

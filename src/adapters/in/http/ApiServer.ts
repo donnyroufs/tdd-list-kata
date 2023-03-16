@@ -1,6 +1,6 @@
 import { Server } from "http"
 import createApp, { json } from "express"
-import { TaskController } from "../../../adapters/in/http/TaskController"
+import { TaskController } from "./TaskController"
 import { once } from "events"
 
 export class ApiServer {
