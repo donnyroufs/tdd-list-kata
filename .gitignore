@@ -2,3 +2,5 @@
 node_modules
 dist
 coverage
+.dev.db
+.dev.db-journal
