@@ -5,6 +5,8 @@ import { ITestClient } from "./ITestClient"
 export class RealTestClient implements ITestClient {
   public constructor(private readonly _client: PrismaClient) {}
 
+  public async addTask(task: Task): Promise<void> {}
+
   public async getTasks(): Promise<Task[]> {
     const tasks = await this._client.tasks.findMany()
 
