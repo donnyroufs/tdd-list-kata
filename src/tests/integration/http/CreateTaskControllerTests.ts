@@ -10,10 +10,15 @@ import { Server } from "http"
 import api from "supertest"
 import { TaskController } from "../../../adapters/in/http/TaskController"
 import { TaskRepository } from "../../../adapters/out/TaskRepository"
-import { CreateTaskUseCase } from "../../../core/CreateTaskUseCase"
+import {
+  CreateTaskRequest,
+  CreateTaskUseCase,
+} from "../../../core/CreateTaskUseCase"
+import { Task } from "../../../core/Task"
 import { ICreateTask } from "../../ICreateTask"
 import { ITestClient } from "../../utils/ITestClient"
 import { RealTestClient } from "../../utils/RealTestClient"
+import { TestCreateTaskRequestBuilder } from "../../utils/TestCreateTaskRequestBuilder"
 import { TestTaskBuilder } from "../../utils/TestTaskBuilder"
 import { ApiServer } from "./ApiServer"
 
@@ -46,34 +51,36 @@ export class CreateTaskShould implements ICreateTask {
 
   @Test()
   public async CreateATask(): Promise<void> {
-    const response = await api(this._server).post("/task").send({
-      title: "my task",
-    })
+    const request = new TestCreateTaskRequestBuilder()
+      .withTitle("my task")
+      .build()
+    const response = await api(this._server).post("/task").send(request)
 
     expect(response.status).toBe(201)
 
-    const expectedTask = new TestTaskBuilder().withTitle("my task").build()
-    const confirmation = await this._testClient.getTasks()
-
-    expect(confirmation).toStrictEqual([expectedTask])
+    const expectedTask = new TestTaskBuilder().withTitle(request.title).build()
+    await this.confirmTaskExists(expectedTask)
   }
 
   @Test()
   public async CreateATaskWithADeadline(): Promise<void> {
-    const date = new Date()
-    const response = await api(this._server).post("/task").send({
-      title: "my task",
-      deadline: date,
-    })
+    const request = new TestCreateTaskRequestBuilder()
+      .withTitle("my task")
+      .withDeadline(new Date())
+      .build()
+    const response = await api(this._server).post("/task").send(request)
 
     expect(response.status).toBe(201)
 
     const expectedTask = new TestTaskBuilder()
-      .withTitle("my task")
-      .withDeadline(date)
+      .withTitle(request.title)
+      .withDeadline(request.deadline!)
       .build()
-    const confirmation = await this._testClient.getTasks()
+    await this.confirmTaskExists(expectedTask)
+  }
 
+  private async confirmTaskExists(expectedTask: Task): Promise<void> {
+    const confirmation = await this._testClient.getTasks()
     expect(confirmation).toStrictEqual([expectedTask])
   }
 }

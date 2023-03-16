@@ -53,7 +53,7 @@ export class CreateTaskShould implements ICreateTask {
 
     const expectedTask = new TestTaskBuilder()
       .withTitle(request.title)
-      .withDeadline(request.date!)
+      .withDeadline(request.deadline!)
       .build()
     const confirmation = await this._testClient.getTasks()
 
