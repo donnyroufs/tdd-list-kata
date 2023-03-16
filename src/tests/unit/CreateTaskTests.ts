@@ -1,13 +1,14 @@
 import { BeforeEach, Describe, Test } from "@jest-decorated/core"
-import { FakeTaskRepository } from "../../adapters/out/FakeTaskRepository"
 import { BaseCreateTask } from "../BaseCreateTask"
-import { FakeTaskDriver } from "../FakeTaskDriver"
+import { FakeTaskDriver } from "../drivers/FakeTaskDriver"
 
 @Describe()
 export class CreateTaskShould extends BaseCreateTask {
+  protected override driver = new FakeTaskDriver()
+
   @BeforeEach()
-  public async setup(): Promise<void> {
-    this.driver = new FakeTaskDriver(new FakeTaskRepository())
+  public beforeEach(): void {
+    this.driver = new FakeTaskDriver()
   }
 
   @Test()

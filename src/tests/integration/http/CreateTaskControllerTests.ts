@@ -5,45 +5,21 @@ import {
   Test,
   BeforeAll,
 } from "@jest-decorated/core"
-import { PrismaClient } from "@prisma/client"
-import { Server } from "http"
-import api from "supertest"
-import { TaskController } from "../../../adapters/in/http/TaskController"
-import { TaskRepository } from "../../../adapters/out/TaskRepository"
-import { CreateTaskUseCase } from "../../../core/CreateTaskUseCase"
-import { ITestClient } from "../../utils/ITestClient"
-import { RealTestClient } from "../../utils/RealTestClient"
-import { ApiServer } from "../../../adapters/in/http/ApiServer"
 import { BaseCreateTask } from "../../BaseCreateTask"
-import { RealTaskDriver } from "../../RealTaskDriver"
+import { RealTaskDriver } from "../../drivers/RealTaskDriver"
 
 @Describe()
 export class CreateTaskShould extends BaseCreateTask {
-  private _prisma: PrismaClient
-  private _testClient: ITestClient
-  private _server: Server
+  protected override driver = new RealTaskDriver()
 
   @BeforeAll()
-  public async setup(): Promise<void> {
-    this._prisma = new PrismaClient()
-    this._testClient = new RealTestClient(this._prisma)
-    const apiServer = new ApiServer()
-    const repo = new TaskRepository(this._prisma)
-    const useCase = new CreateTaskUseCase(repo)
-    this._server = await apiServer.start(new TaskController(useCase))
-    this.driver = new RealTaskDriver(api(this._server), this._prisma)
-  }
+  public beforeAll = (): Promise<void> => this.driver.beforeAll()
 
   @BeforeEach()
-  public async stopServer(): Promise<void> {
-    await this._testClient.clearTasks()
-  }
+  public beforeEach = (): Promise<void> => this.driver.beforeEach()
 
   @AfterAll()
-  public async dispose(): Promise<void> {
-    await this._testClient.dispose()
-    await this._server.close()
-  }
+  public dispose = (): Promise<void> => this.driver.afterAll()
 
   @Test()
   public async CreateATask(): Promise<void> {

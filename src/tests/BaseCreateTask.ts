@@ -1,17 +1,15 @@
-import { Task } from "../core/Task"
-
-export interface ICreateTaskDriver {
-  add(amount: number): Promise<void>
-  getTasks(): Promise<Task[]>
-}
+import { ITaskDriver } from "./drivers/ITaskDriver"
 
 export abstract class BaseCreateTask {
-  protected driver: ICreateTaskDriver
+  protected driver: ITaskDriver
 
   public async CreateATask(): Promise<void> {
     await this.driver.add(1)
     const tasks = await this.driver.getTasks()
 
     expect(tasks).toHaveLength(1)
+    const task = tasks.at(0)!
+    expect(task.title).toBeDefined()
+    expect(task.deadline).toBeDefined()
   }
 }

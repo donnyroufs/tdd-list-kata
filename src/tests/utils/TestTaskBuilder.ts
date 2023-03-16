@@ -1,4 +1,6 @@
 import { Task } from "../../core/Task"
+import { TaskTitle } from "../../core/TaskTitle"
+import { Deadline } from "../../core/Deadline"
 
 export class TestTaskBuilder {
   private _title: string
@@ -19,6 +21,10 @@ export class TestTaskBuilder {
       throw new Error("missing title")
     }
 
-    return new Task(this._title, this._deadline)
+    if (!this._deadline) {
+      return new Task(new TaskTitle(this._title))
+    }
+
+    return new Task(new TaskTitle(this._title), new Deadline(this._deadline))
   }
 }
