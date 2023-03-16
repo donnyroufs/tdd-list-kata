@@ -1,6 +1,6 @@
-import { Task } from "./Task"
+import { CreateTaskRequest } from "../../core/CreateTaskUseCase"
 
-export class TestTaskBuilder {
+export class TestCreateTaskRequestBuilder {
   private _title: string
   private _deadline?: Date
 
@@ -14,11 +14,11 @@ export class TestTaskBuilder {
     return this
   }
 
-  public build(): Task {
+  public build(): CreateTaskRequest {
     if (!this._title) {
       throw new Error("missing title")
     }
 
-    return new Task(this._title, this._deadline)
+    return new CreateTaskRequest(this._title, this._deadline)
   }
 }

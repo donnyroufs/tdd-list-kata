@@ -1,9 +1,9 @@
 import { BeforeEach, Describe, Test } from "@jest-decorated/core"
-import { CreateTaskUseCase } from "./CreateTaskUseCase"
-import { FakeTaskRepository } from "./FakeTaskRepository"
-import { TestCreateTaskRequestBuilder } from "./TestCreateTaskRequestBuilder"
-import { TestDatabaseClient } from "./TestDatabaseClient"
-import { TestTaskBuilder } from "./TestTaskBuilder"
+import { CreateTaskUseCase } from "../../core/CreateTaskUseCase"
+import { FakeTaskRepository } from "../../core/FakeTaskRepository"
+import { TestCreateTaskRequestBuilder } from "../utils/TestCreateTaskRequestBuilder"
+import { TestDatabaseClient } from "../utils/TestDatabaseClient"
+import { TestTaskBuilder } from "../utils/TestTaskBuilder"
 
 @Describe()
 export class CreateTaskShould {

@@ -1,5 +1,5 @@
-import { FakeTaskRepository } from "./FakeTaskRepository"
-import { Task } from "./Task"
+import { FakeTaskRepository } from "../../core/FakeTaskRepository"
+import { Task } from "../../core/Task"
 
 export class TestDatabaseClient {
   public constructor(private readonly _taskRepository: FakeTaskRepository) {}
