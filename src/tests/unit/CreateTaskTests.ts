@@ -1,6 +1,6 @@
 import { BeforeEach, Describe, Test } from "@jest-decorated/core"
 import { CreateTaskUseCase } from "../../core/CreateTaskUseCase"
-import { FakeTaskRepository } from "../../core/FakeTaskRepository"
+import { FakeTaskRepository } from "../../adapters/out/FakeTaskRepository"
 import { ICreateTask } from "../ICreateTask"
 import { TestCreateTaskRequestBuilder } from "../utils/TestCreateTaskRequestBuilder"
 import { TestDatabaseClient } from "../utils/TestDatabaseClient"

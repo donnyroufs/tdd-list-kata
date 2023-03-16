@@ -1,5 +1,5 @@
-import { ITaskRepository } from "./ITaskRepository"
-import { Task } from "./Task"
+import { ITaskRepository } from "../../core/ITaskRepository"
+import { Task } from "../../core/Task"
 
 export class FakeTaskRepository implements ITaskRepository {
   public collection: Task[] = []
