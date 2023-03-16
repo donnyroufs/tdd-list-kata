@@ -1,21 +1,37 @@
-import { BeforeEach, Describe, Test } from "@jest-decorated/core"
+import {
+  AfterAll,
+  AfterEach,
+  BeforeEach,
+  Describe,
+  Test,
+} from "@jest-decorated/core"
+import { PrismaClient } from "@prisma/client"
+import { TaskRepository } from "../../adapters/out/TaskRepository"
 import { CreateTaskUseCase } from "../../core/CreateTaskUseCase"
-import { FakeTaskRepository } from "../../core/FakeTaskRepository"
 import { ICreateTask } from "../ICreateTask"
+import { ITestClient } from "../utils/ITestClient"
+import { RealTestClient } from "../utils/RealTestClient"
 import { TestCreateTaskRequestBuilder } from "../utils/TestCreateTaskRequestBuilder"
 import { TestDatabaseClient } from "../utils/TestDatabaseClient"
 import { TestTaskBuilder } from "../utils/TestTaskBuilder"
 
 @Describe()
 export class CreateTaskShould implements ICreateTask {
-  private _db: TestDatabaseClient
+  private _client: PrismaClient
+  private _db: ITestClient
   private _sut: CreateTaskUseCase
 
   @BeforeEach()
   public async setup(): Promise<void> {
-    const fakeTasksRepo = new FakeTaskRepository()
-    this._sut = new CreateTaskUseCase(fakeTasksRepo)
-    this._db = new TestDatabaseClient(fakeTasksRepo)
+    this._client = new PrismaClient()
+    this._db = new RealTestClient(this._client)
+    this._sut = new CreateTaskUseCase(new TaskRepository(this._client))
+    await this._client.tasks.deleteMany()
+  }
+
+  @AfterAll()
+  public async dispose(): Promise<void> {
+    await this._client.$disconnect()
   }
 
   @Test()
