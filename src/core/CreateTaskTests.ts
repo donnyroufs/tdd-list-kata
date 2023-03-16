@@ -1,8 +1,9 @@
 import { BeforeEach, Describe, Test } from "@jest-decorated/core"
-import { CreateTaskRequest, CreateTaskUseCase } from "./CreateTaskUseCase"
+import { CreateTaskUseCase } from "./CreateTaskUseCase"
 import { FakeTaskRepository } from "./FakeTaskRepository"
-import { Task } from "./Task"
+import { TestCreateTaskRequestBuilder } from "./TestCreateTaskRequestBuilder"
 import { TestDatabaseClient } from "./TestDatabaseClient"
+import { TestTaskBuilder } from "./TestTaskBuilder"
 
 @Describe()
 export class CreateTaskShould {
@@ -18,11 +19,13 @@ export class CreateTaskShould {
 
   @Test()
   public async CreateATask(): Promise<void> {
-    const request = new CreateTaskRequest("my task")
+    const request = new TestCreateTaskRequestBuilder()
+      .withTitle("my task")
+      .build()
 
     await this._sut.execute(request)
 
-    const expectedTask = new Task(request.title)
+    const expectedTask = new TestTaskBuilder().withTitle(request.title).build()
     const confirmation = await this._db.getTasks()
 
     expect(confirmation).toStrictEqual([expectedTask])
@@ -31,11 +34,17 @@ export class CreateTaskShould {
   @Test()
   public async CreateATaskWithADeadline(): Promise<void> {
     const date = new Date()
-    const request = new CreateTaskRequest("my task", date)
+    const request = new TestCreateTaskRequestBuilder()
+      .withTitle("my task")
+      .withDeadline(date)
+      .build()
 
     await this._sut.execute(request)
 
-    const expectedTask = new Task(request.title, request.date)
+    const expectedTask = new TestTaskBuilder()
+      .withTitle(request.title)
+      .withDeadline(request.date!)
+      .build()
     const confirmation = await this._db.getTasks()
 
     expect(confirmation).toStrictEqual([expectedTask])
