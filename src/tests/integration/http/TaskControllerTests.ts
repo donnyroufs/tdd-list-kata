@@ -5,11 +5,11 @@ import {
   Test,
   BeforeAll,
 } from "@jest-decorated/core"
-import { BaseCreateTask } from "../../BaseCreateTask"
+import { BaseTestsForTasks } from "../../BaseTestsForTasks"
 import { RealTaskDriver } from "../../drivers/RealTaskDriver"
 
 @Describe()
-export class CreateTaskShould extends BaseCreateTask {
+export class CreateTaskShould extends BaseTestsForTasks {
   protected override driver = new RealTaskDriver()
 
   @BeforeAll()
@@ -24,5 +24,10 @@ export class CreateTaskShould extends BaseCreateTask {
   @Test()
   public async CreateATask(): Promise<void> {
     await super.CreateATask()
+  }
+
+  @Test()
+  public async ShowTasksDueToday(): Promise<void> {
+    await super.ShowTasksDueToday()
   }
 }

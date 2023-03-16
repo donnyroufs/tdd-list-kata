@@ -3,9 +3,19 @@ import {
   CreateTaskRequest,
   CreateTaskUseCase,
 } from "../../../core/CreateTaskUseCase"
+import { Task } from "../../../core/Task"
+import { FindTasksDueTodayUseCase } from "../../../core/FindTasksDueTodayUseCase"
 
 export class TaskController {
-  public constructor(private readonly _createTask: CreateTaskUseCase) {}
+  public constructor(
+    private readonly _createTask: CreateTaskUseCase,
+    private readonly _findTasksDueToday: FindTasksDueTodayUseCase
+  ) {}
+
+  public async findTasksDueToday(req: Request, res: Response): Promise<any> {
+    const tasks = await this._findTasksDueToday.execute()
+    return res.status(200).json(tasks)
+  }
 
   public async create(req: Request, res: Response): Promise<void> {
     await this._createTask.execute(

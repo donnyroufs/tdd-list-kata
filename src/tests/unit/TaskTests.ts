@@ -1,9 +1,9 @@
 import { BeforeEach, Describe, Test } from "@jest-decorated/core"
-import { BaseCreateTask } from "../BaseCreateTask"
+import { BaseTestsForTasks } from "../BaseTestsForTasks"
 import { FakeTaskDriver } from "../drivers/FakeTaskDriver"
 
 @Describe()
-export class CreateTaskShould extends BaseCreateTask {
+export class CreateTaskShould extends BaseTestsForTasks {
   protected override driver = new FakeTaskDriver()
 
   @BeforeEach()
@@ -14,5 +14,10 @@ export class CreateTaskShould extends BaseCreateTask {
   @Test()
   public override async CreateATask(): Promise<void> {
     await super.CreateATask()
+  }
+
+  @Test()
+  public override async ShowTasksDueToday(): Promise<void> {
+    await super.ShowTasksDueToday()
   }
 }

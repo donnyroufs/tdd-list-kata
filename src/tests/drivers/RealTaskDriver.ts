@@ -10,13 +10,19 @@ import { CreateTaskUseCase } from "../../core/CreateTaskUseCase"
 import { TaskController } from "../../adapters/in/http/TaskController"
 import { TaskTitle } from "../../core/TaskTitle"
 import { Deadline } from "../../core/Deadline"
+import { FindTasksDueTodayUseCase } from "../../core/FindTasksDueTodayUseCase"
+import { IDateService } from "../../core/IDateService"
+import { mock, mockClear, MockProxy } from "jest-mock-extended"
 
 export class RealTaskDriver implements ITaskDriver {
+  private static TODAYS_DATE = new Date()
   private _server: Server
   private readonly _prisma: PrismaClient
+  private readonly _dateService: MockProxy<IDateService>
 
   public constructor() {
     this._prisma = new PrismaClient()
+    this._dateService = mock<IDateService>()
   }
 
   public async add(amount: number): Promise<void> {
@@ -40,19 +46,51 @@ export class RealTaskDriver implements ITaskDriver {
     )
   }
 
+  public async addTaskWithDeadline(
+    amount: number,
+    deadline: Date
+  ): Promise<void> {
+    RealTaskDriver.TODAYS_DATE = deadline
+    for (let i = 0; i < amount; i++) {
+      const request = new TestCreateTaskRequestBuilder()
+        .withTitle("my task")
+        .withDeadline(RealTaskDriver.TODAYS_DATE)
+        .build()
+
+      await api(this._server).post("/task").send(request)
+    }
+  }
+
+  public async getTasksDueByDate(today: Date): Promise<Task[]> {
+    this._dateService.getTodaysDate.mockReturnValue(today)
+    const result = await api(this._server).get("/task")
+
+    return result.body
+  }
+
   public async beforeAll(): Promise<void> {
     const apiServer = new ApiServer()
     const repo = new TaskRepository(this._prisma)
     const useCase = new CreateTaskUseCase(repo)
-    this._server = await apiServer.start(new TaskController(useCase))
+    this._server = await apiServer.start(
+      new TaskController(
+        useCase,
+        new FindTasksDueTodayUseCase(repo, this._dateService)
+      )
+    )
   }
 
   public async beforeEach(): Promise<void> {
     await this._prisma.tasks.deleteMany()
+    mockClear(this._dateService)
   }
 
   public async afterAll(): Promise<void> {
     await this._server.close()
     await this._prisma.$disconnect()
+  }
+
+  public setCurrentDate(date: Date): void {
+    this._dateService.getTodaysDate.mockReturnValue(date)
   }
 }

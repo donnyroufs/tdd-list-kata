@@ -9,6 +9,7 @@ export class ApiServer {
 
     app.use(json())
     app.post("/task", (req, res) => taskController.create(req, res))
+    app.get("/task", (req, res) => taskController.findTasksDueToday(req, res))
 
     const server = app.listen(5000)
 
