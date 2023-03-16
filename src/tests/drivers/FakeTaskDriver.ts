@@ -6,6 +6,7 @@ import { TestCreateTaskRequestBuilder } from "../utils/TestCreateTaskRequestBuil
 import { FindTasksDueTodayUseCase } from "../../core/FindTasksDueTodayUseCase"
 import { mock, MockProxy } from "jest-mock-extended"
 import { IDateService } from "../../core/IDateService"
+import { TaskDto } from "../../core/TaskDto"
 
 export class FakeTaskDriver implements ITaskDriver {
   private readonly _createTaskUseCase: CreateTaskUseCase
@@ -52,7 +53,7 @@ export class FakeTaskDriver implements ITaskDriver {
     }
   }
 
-  public async getTasksDueByDate(today: Date): Promise<Task[]> {
+  public async getTasksDueByDate(today: Date): Promise<TaskDto[]> {
     return this._findTasksDueTodayUseCase.execute()
   }
 

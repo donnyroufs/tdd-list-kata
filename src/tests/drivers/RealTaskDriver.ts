@@ -13,6 +13,7 @@ import { Deadline } from "../../core/Deadline"
 import { FindTasksDueTodayUseCase } from "../../core/FindTasksDueTodayUseCase"
 import { IDateService } from "../../core/IDateService"
 import { mock, mockClear, MockProxy } from "jest-mock-extended"
+import { TaskDto } from "../../core/TaskDto"
 
 export class RealTaskDriver implements ITaskDriver {
   private static TODAYS_DATE = new Date()
@@ -61,7 +62,7 @@ export class RealTaskDriver implements ITaskDriver {
     }
   }
 
-  public async getTasksDueByDate(today: Date): Promise<Task[]> {
+  public async getTasksDueByDate(today: Date): Promise<TaskDto[]> {
     this._dateService.getTodaysDate.mockReturnValue(today)
     const result = await api(this._server).get("/task")
 

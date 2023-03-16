@@ -23,6 +23,6 @@ export abstract class BaseTestsForTasks {
     await this.driver.addTaskWithDeadline(1, tomorrow)
 
     const tasks = await this.driver.getTasksDueByDate(today)
-    expect(tasks).toHaveLength(2)
+    expect(tasks).toBeArrayOfSize(2)
   }
 }
