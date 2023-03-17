@@ -5,6 +5,10 @@ import { DateRange } from "../../../core/DateRange"
 export class FakeTaskRepository implements ITaskRepository {
   public collection: Task[] = []
 
+  public constructor(tasks: Task[] = []) {
+    this.collection = tasks
+  }
+
   public async save(task: Task): Promise<void> {
     this.collection.push(task)
   }
