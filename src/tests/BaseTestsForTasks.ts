@@ -1,5 +1,5 @@
 import { ITaskDriver } from "./drivers/ITaskDriver"
-import { addDays } from "./utils/AddDays"
+import { TestDateFactory } from "./utils/TestDateFactory"
 
 export abstract class BaseTestsForTasks {
   protected driver: ITaskDriver
@@ -15,10 +15,10 @@ export abstract class BaseTestsForTasks {
   }
 
   public async ShowTasksDueToday(): Promise<void> {
-    const today = new Date()
+    const today = TestDateFactory.today()
     this.driver.setCurrentDate(today)
 
-    const tomorrow = addDays(today, 1)
+    const tomorrow = TestDateFactory.tomorrow()
     await this.driver.addTaskWithDeadline(2, today)
     await this.driver.addTaskWithDeadline(1, tomorrow)
 
