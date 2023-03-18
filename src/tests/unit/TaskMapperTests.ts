@@ -10,10 +10,7 @@ import { Deadline } from "../../core/Deadline"
 export class TaskMapperShould {
   @Test()
   public MapToPrismaModel(): void {
-    const task = new TestTaskBuilder()
-      .withTitle("my title")
-      .withDeadline(new Date())
-      .build()
+    const task = new TestTaskBuilder().withDeadline(new Date()).build()
 
     const model = TaskMapper.toModel(task)
 

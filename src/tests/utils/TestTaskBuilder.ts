@@ -1,9 +1,10 @@
 import { Task } from "../../core/Task"
 import { TaskTitle } from "../../core/TaskTitle"
 import { Deadline } from "../../core/Deadline"
+import { faker as f } from "@faker-js/faker"
 
 export class TestTaskBuilder {
-  private _title: string
+  private _title: string = f.lorem.sentence()
   private _deadline?: Date
 
   public withTitle(title: string): this {
@@ -17,10 +18,6 @@ export class TestTaskBuilder {
   }
 
   public build(): Task {
-    if (!this._title) {
-      throw new Error("missing title")
-    }
-
     if (!this._deadline) {
       return new Task(new TaskTitle(this._title))
     }

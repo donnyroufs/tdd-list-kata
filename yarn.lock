@@ -457,6 +457,11 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@faker-js/faker@^7.6.0":
+  version "7.6.0"
+  resolved "https://registry.yarnpkg.com/@faker-js/faker/-/faker-7.6.0.tgz#9ea331766084288634a9247fcd8b84f16ff4ba07"
+  integrity sha512-XK6BTq1NDMo9Xqw/YkYyGjSsg44fbNwYRx7QK2CuoQgyy+f1rrTDHoExVM5PsyXCtfl2vs2vVJ0MN0yN6LppRw==
+
 "@humanwhocodes/config-array@^0.10.4":
   version "0.10.4"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.10.4.tgz#01e7366e57d2ad104feea63e72248f22015c520c"
@@ -4180,11 +4185,6 @@ ts-essentials@^7.0.3:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/ts-essentials/-/ts-essentials-7.0.3.tgz#686fd155a02133eedcc5362dc8b5056cde3e5a38"
   integrity sha512-8+gr5+lqO3G84KdiTSMRLtuyJ+nTBVRKuCrK4lidMPdVeEp0uqC875uE5NMcaA7YYMN7XsNiFQuMvasF8HT/xQ==
-
-ts-guard-clause@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/ts-guard-clause/-/ts-guard-clause-0.0.7.tgz#0e401e90f4b26d694c1dee8f44b3edff827ef9cd"
-  integrity sha512-9/dQQGr/kKdkbIv4FR6QZ4xyLom0y2AZQNtpH3Wg6bH8E3II+WWHXd5iikzMsYS6/HFVfgQs4OljSiEUJYlCSg==
 
 ts-jest@^28.0.8:
   version "28.0.8"

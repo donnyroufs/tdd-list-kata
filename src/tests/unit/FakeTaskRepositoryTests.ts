@@ -9,10 +9,7 @@ export class FakeTaskRepositoryTests {
   @Test()
   public async StoresATask(): Promise<void> {
     const sut = new FakeTaskRepository()
-    const task = new TestTaskBuilder()
-      .withTitle("title")
-      .withDeadline(new Date())
-      .build()
+    const task = new TestTaskBuilder().withDeadline(new Date()).build()
 
     await sut.save(task)
 
@@ -23,14 +20,8 @@ export class FakeTaskRepositoryTests {
   public async FindsTasksDueByDate(): Promise<void> {
     const today = TestDateFactory.today()
     const tomorrow = TestDateFactory.tomorrow()
-    const willBeFound = new TestTaskBuilder()
-      .withTitle("title")
-      .withDeadline(today)
-      .build()
-    const wontBeFound = new TestTaskBuilder()
-      .withTitle("title")
-      .withDeadline(tomorrow)
-      .build()
+    const willBeFound = new TestTaskBuilder().withDeadline(today).build()
+    const wontBeFound = new TestTaskBuilder().withDeadline(tomorrow).build()
     const sut = new FakeTaskRepository([willBeFound, wontBeFound])
 
     const tasks = await sut.findTasksDueToday(new DateRange(today))

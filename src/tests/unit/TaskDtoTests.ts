@@ -6,10 +6,7 @@ import { TaskDto } from "../../core/TaskDto"
 export class TaskDtoTests {
   @Test()
   public MapsFromAnEntityToItsOwnType(): void {
-    const task = new TestTaskBuilder()
-      .withTitle("my title")
-      .withDeadline(new Date())
-      .build()
+    const task = new TestTaskBuilder().withDeadline(new Date()).build()
 
     expect(TaskDto.from(task)).toStrictEqual(
       new TaskDto(task.title.value, task.deadline!.value)

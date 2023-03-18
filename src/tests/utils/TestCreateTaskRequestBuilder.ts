@@ -1,7 +1,8 @@
 import { CreateTaskRequest } from "../../core/CreateTaskUseCase"
+import { faker as f } from "@faker-js/faker"
 
 export class TestCreateTaskRequestBuilder {
-  private _title: string
+  private _title: string = f.lorem.sentence()
   private _deadline?: Date
 
   public withTitle(title: string): this {
@@ -15,10 +16,6 @@ export class TestCreateTaskRequestBuilder {
   }
 
   public build(): CreateTaskRequest {
-    if (!this._title) {
-      throw new Error("missing title")
-    }
-
     return new CreateTaskRequest(this._title, this._deadline)
   }
 }

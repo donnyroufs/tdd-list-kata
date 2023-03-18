@@ -20,7 +20,6 @@ export class CreateTaskUseCaseShould {
     const act = (): Promise<void> =>
       sut.execute(
         new TestCreateTaskRequestBuilder()
-          .withTitle("title")
           .withDeadline(TestDateFactory.yesterday())
           .build()
       )
