@@ -6,6 +6,7 @@ export abstract class BaseTestsForTasks {
 
   public async CreateATask(): Promise<void> {
     const TITLE = "my title"
+
     await this.driver.add(TITLE)
     const tasks = await this.driver.getTasks()
 
@@ -14,13 +15,13 @@ export abstract class BaseTestsForTasks {
 
   public async ShowTasksDueToday(): Promise<void> {
     const today = TestDateFactory.today()
-    this.driver.setCurrentDate(today)
-
     const tomorrow = TestDateFactory.tomorrow()
+
+    this.driver.setCurrentDate(today)
     await this.driver.addTaskWithDeadline(2, today)
     await this.driver.addTaskWithDeadline(1, tomorrow)
-
     const tasks = await this.driver.getTasksDueByDate(today)
+
     expect(tasks).toBeArrayOfSize(2)
     expect(tasks.at(0)!.deadline).toEqual(today)
     expect(tasks.at(1)!.deadline).toEqual(today)
