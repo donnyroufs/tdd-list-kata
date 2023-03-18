@@ -84,4 +84,8 @@ export class ControllerTaskDriver implements ITaskDriver {
   public setCurrentDate(date: Date): void {
     this._dateService.getTodaysDate.mockReturnValue(date)
   }
+
+  public afterEach(): Promise<void> {
+    return Promise.resolve(undefined)
+  }
 }

@@ -4,7 +4,9 @@ import { UseCasesTaskDriver } from "./UseCasesTaskDriver"
 
 @Describe()
 export class TaskUseCasesShould extends BaseTestsForTasks {
-  protected override driver = new UseCasesTaskDriver()
+  public constructor() {
+    super(new UseCasesTaskDriver())
+  }
 
   @BeforeEach()
   public beforeEach(): void {
@@ -12,12 +14,9 @@ export class TaskUseCasesShould extends BaseTestsForTasks {
   }
 
   @Test()
-  public override async CreateATask(): Promise<void> {
-    await super.CreateATask()
-  }
+  public override CreateATask = (): Promise<void> => super.CreateATask()
 
   @Test()
-  public override async ShowTasksDueToday(): Promise<void> {
-    await super.ShowTasksDueToday()
-  }
+  public override ShowTasksDueToday = (): Promise<void> =>
+    super.ShowTasksDueToday()
 }

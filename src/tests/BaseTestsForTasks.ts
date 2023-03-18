@@ -2,7 +2,7 @@ import { ITaskDriver } from "./ITaskDriver"
 import { TestDateFactory } from "./utils/TestDateFactory"
 
 export abstract class BaseTestsForTasks {
-  protected driver: ITaskDriver
+  protected constructor(protected driver: ITaskDriver) {}
 
   public async CreateATask(): Promise<void> {
     const TITLE = "my title"

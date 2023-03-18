@@ -58,4 +58,20 @@ export class UseCasesTaskDriver implements ITaskDriver {
   public setCurrentDate(date: Date): void {
     this._dateService.getTodaysDate.mockReturnValue(date)
   }
+
+  public afterAll(): Promise<void> {
+    return Promise.resolve(undefined)
+  }
+
+  public afterEach(): Promise<void> {
+    return Promise.resolve(undefined)
+  }
+
+  public beforeAll(): Promise<void> {
+    return Promise.resolve(undefined)
+  }
+
+  public beforeEach(): Promise<void> {
+    return Promise.resolve(undefined)
+  }
 }

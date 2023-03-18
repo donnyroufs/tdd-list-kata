@@ -10,7 +10,9 @@ import { ControllerTaskDriver } from "../ControllerTaskDriver"
 
 @Describe()
 export class TaskControllerShould extends BaseTestsForTasks {
-  protected override driver = new ControllerTaskDriver()
+  public constructor() {
+    super(new ControllerTaskDriver())
+  }
 
   @BeforeAll()
   public beforeAll = (): Promise<void> => this.driver.beforeAll()
@@ -22,12 +24,8 @@ export class TaskControllerShould extends BaseTestsForTasks {
   public dispose = (): Promise<void> => this.driver.afterAll()
 
   @Test()
-  public async CreateATask(): Promise<void> {
-    await super.CreateATask()
-  }
+  public CreateATask = (): Promise<void> => super.CreateATask()
 
   @Test()
-  public async ShowTasksDueToday(): Promise<void> {
-    await super.ShowTasksDueToday()
-  }
+  public ShowTasksDueToday = (): Promise<void> => super.ShowTasksDueToday()
 }
