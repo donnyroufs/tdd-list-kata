@@ -1,6 +1,6 @@
 import { BeforeEach, Describe, Test } from "@jest-decorated/core"
 import { BaseTestsForTasks } from "../BaseTestsForTasks"
-import { UseCasesTaskDriver } from "../drivers/UseCasesTaskDriver"
+import { UseCasesTaskDriver } from "./UseCasesTaskDriver"
 
 @Describe()
 export class TaskUseCasesShould extends BaseTestsForTasks {

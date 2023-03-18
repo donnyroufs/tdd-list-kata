@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client"
 import { Task } from "../../core/Task"
 import api from "supertest"
 import { TestCreateTaskRequestBuilder } from "../utils/TestCreateTaskRequestBuilder"
-import { ITaskDriver } from "./ITaskDriver"
+import { ITaskDriver } from "../ITaskDriver"
 import { Server } from "http"
 import { ApiServer } from "../../adapters/in/http/ApiServer"
 import { TaskRepository } from "../../adapters/out/persistence/TaskRepository"
@@ -25,15 +25,10 @@ export class ControllerTaskDriver implements ITaskDriver {
     this._dateService = mock<IDateService>()
   }
 
-  public async add(amount: number): Promise<void> {
-    for (let i = 0; i < amount; i++) {
-      const request = new TestCreateTaskRequestBuilder()
-        .withTitle("my task")
-        .withDeadline(new Date())
-        .build()
+  public async add(title: string): Promise<void> {
+    const request = new TestCreateTaskRequestBuilder().withTitle(title).build()
 
-      await api(this._server).post("/task").send(request)
-    }
+    await api(this._server).post("/task").send(request)
   }
 
   public async getTasks(): Promise<Task[]> {
@@ -48,7 +43,6 @@ export class ControllerTaskDriver implements ITaskDriver {
     ControllerTaskDriver.TODAYS_DATE = deadline
     for (let i = 0; i < amount; i++) {
       const request = new TestCreateTaskRequestBuilder()
-        .withTitle("my task")
         .withDeadline(ControllerTaskDriver.TODAYS_DATE)
         .build()
 
@@ -60,7 +54,9 @@ export class ControllerTaskDriver implements ITaskDriver {
     this._dateService.getTodaysDate.mockReturnValue(today)
     const result = await api(this._server).get("/task")
 
-    return result.body
+    return result.body.map(
+      (task: TaskDto) => new TaskDto(task.title, new Date(task.deadline!))
+    )
   }
 
   public async beforeAll(): Promise<void> {

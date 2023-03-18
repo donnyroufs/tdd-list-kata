@@ -6,7 +6,7 @@ import {
   BeforeAll,
 } from "@jest-decorated/core"
 import { BaseTestsForTasks } from "../../BaseTestsForTasks"
-import { ControllerTaskDriver } from "../../drivers/ControllerTaskDriver"
+import { ControllerTaskDriver } from "../ControllerTaskDriver"
 
 @Describe()
 export class TaskControllerShould extends BaseTestsForTasks {

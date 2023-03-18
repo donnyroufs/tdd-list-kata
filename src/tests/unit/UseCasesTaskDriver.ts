@@ -1,6 +1,6 @@
 import { Task } from "../../core/Task"
 import { FakeTaskRepository } from "../../adapters/out/persistence/FakeTaskRepository"
-import { ITaskDriver } from "./ITaskDriver"
+import { ITaskDriver } from "../ITaskDriver"
 import { CreateTaskUseCase } from "../../core/CreateTaskUseCase"
 import { TestCreateTaskRequestBuilder } from "../utils/TestCreateTaskRequestBuilder"
 import { FindTasksDueTodayUseCase } from "../../core/FindTasksDueTodayUseCase"
@@ -27,15 +27,10 @@ export class UseCasesTaskDriver implements ITaskDriver {
     )
   }
 
-  public async add(amount: number): Promise<void> {
-    for (let i = 0; i < amount; i++) {
-      const task = new TestCreateTaskRequestBuilder()
-        .withTitle(Math.random().toString())
-        .withDeadline(new Date())
-        .build()
+  public async add(title: string): Promise<void> {
+    const task = new TestCreateTaskRequestBuilder().withTitle(title).build()
 
-      await this._createTaskUseCase.execute(task)
-    }
+    await this._createTaskUseCase.execute(task)
   }
 
   public async getTasks(): Promise<Task[]> {

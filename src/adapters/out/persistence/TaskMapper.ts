@@ -1,7 +1,5 @@
 import { Prisma, Tasks } from "@prisma/client"
 import { Task } from "../../../core/Task"
-import { Deadline } from "../../../core/Deadline"
-import { TaskTitle } from "../../../core/TaskTitle"
 import { TaskFactory } from "../../../core/TaskFactory"
 
 export class TaskMapper {

@@ -1,17 +1,15 @@
-import { ITaskDriver } from "./drivers/ITaskDriver"
+import { ITaskDriver } from "./ITaskDriver"
 import { TestDateFactory } from "./utils/TestDateFactory"
 
 export abstract class BaseTestsForTasks {
   protected driver: ITaskDriver
 
   public async CreateATask(): Promise<void> {
-    await this.driver.add(1)
+    const TITLE = "my title"
+    await this.driver.add(TITLE)
     const tasks = await this.driver.getTasks()
 
-    expect(tasks).toHaveLength(1)
-    const task = tasks.at(0)!
-    expect(task.title).toBeDefined()
-    expect(task.deadline).toBeDefined()
+    expect(tasks.at(0)!.title.value).toEqual(TITLE)
   }
 
   public async ShowTasksDueToday(): Promise<void> {
@@ -24,5 +22,7 @@ export abstract class BaseTestsForTasks {
 
     const tasks = await this.driver.getTasksDueByDate(today)
     expect(tasks).toBeArrayOfSize(2)
+    expect(tasks.at(0)!.deadline).toEqual(today)
+    expect(tasks.at(1)!.deadline).toEqual(today)
   }
 }
