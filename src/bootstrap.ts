@@ -10,11 +10,9 @@ export async function bootstrap(): Promise<void> {
   const api = new ApiServer()
   const prisma = new PrismaClient()
   const taskRepo = new TaskRepository(prisma)
-  const createTask = new CreateTaskUseCase(taskRepo)
-  const findTasksDueToday = new FindTasksDueTodayUseCase(
-    taskRepo,
-    new DateService()
-  )
+  const dateService = new DateService()
+  const createTask = new CreateTaskUseCase(taskRepo, dateService)
+  const findTasksDueToday = new FindTasksDueTodayUseCase(taskRepo, dateService)
   const taskController = new TaskController(createTask, findTasksDueToday)
 
   await api.start(taskController)

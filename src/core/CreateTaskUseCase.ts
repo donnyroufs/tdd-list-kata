@@ -1,8 +1,6 @@
 import { ITaskRepository } from "./ITaskRepository"
-import { Task } from "./Task"
-import { Deadline } from "./Deadline"
-import { TaskTitle } from "./TaskTitle"
 import { IDateService } from "./IDateService"
+import { TaskFactory } from "./TaskFactory"
 
 export class CreateTaskUseCase {
   public constructor(
@@ -11,23 +9,20 @@ export class CreateTaskUseCase {
   ) {}
 
   public async execute(request: CreateTaskRequest): Promise<void> {
-    if (!request.deadline) {
-      const task = new Task(new TaskTitle(request.title))
-      await this._taskRepository.save(task)
-      return
-    }
+    this.throwIfDeadlineOlderThanToday(request)
 
-    if (new Date(request.deadline) < this._dateService.getTodaysDate()) {
-      throw new Error(
-        "You cannot create a task with a deadline thats older than today"
-      )
-    }
+    const task = TaskFactory.create(request.title, request.deadline)
 
-    const task = new Task(
-      new TaskTitle(request.title),
-      new Deadline(request.deadline)
-    )
     await this._taskRepository.save(task)
+  }
+
+  private throwIfDeadlineOlderThanToday(request: CreateTaskRequest): void {
+    if (
+      request.deadline &&
+      request.deadline < this._dateService.getTodaysDate()
+    ) {
+      throw new Error("A task's deadline has to be older than today")
+    }
   }
 }
 

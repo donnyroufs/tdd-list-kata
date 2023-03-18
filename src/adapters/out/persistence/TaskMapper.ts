@@ -2,13 +2,11 @@ import { Prisma, Tasks } from "@prisma/client"
 import { Task } from "../../../core/Task"
 import { Deadline } from "../../../core/Deadline"
 import { TaskTitle } from "../../../core/TaskTitle"
+import { TaskFactory } from "../../../core/TaskFactory"
 
 export class TaskMapper {
   public static toDomain(task: Tasks): Task {
-    return new Task(
-      new TaskTitle(task.title),
-      task.deadline ? new Deadline(task.deadline) : undefined
-    )
+    return TaskFactory.create(task.title, task.deadline!)
   }
 
   public static toModel(entity: Task): Prisma.TasksCreateInput {
