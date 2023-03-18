@@ -14,7 +14,7 @@ import { mock, mockClear, MockProxy } from "jest-mock-extended"
 import { TaskDto } from "../../core/TaskDto"
 import { TaskMapper } from "../../adapters/out/persistence/TaskMapper"
 
-export class RealTaskDriver implements ITaskDriver {
+export class ControllerTaskDriver implements ITaskDriver {
   private static TODAYS_DATE = new Date()
   private _server: Server
   private readonly _prisma: PrismaClient
@@ -45,11 +45,11 @@ export class RealTaskDriver implements ITaskDriver {
     amount: number,
     deadline: Date
   ): Promise<void> {
-    RealTaskDriver.TODAYS_DATE = deadline
+    ControllerTaskDriver.TODAYS_DATE = deadline
     for (let i = 0; i < amount; i++) {
       const request = new TestCreateTaskRequestBuilder()
         .withTitle("my task")
-        .withDeadline(RealTaskDriver.TODAYS_DATE)
+        .withDeadline(ControllerTaskDriver.TODAYS_DATE)
         .build()
 
       await api(this._server).post("/task").send(request)

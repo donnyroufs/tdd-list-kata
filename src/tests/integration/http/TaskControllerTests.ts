@@ -6,11 +6,11 @@ import {
   BeforeAll,
 } from "@jest-decorated/core"
 import { BaseTestsForTasks } from "../../BaseTestsForTasks"
-import { RealTaskDriver } from "../../drivers/RealTaskDriver"
+import { ControllerTaskDriver } from "../../drivers/ControllerTaskDriver"
 
 @Describe()
 export class TaskControllerShould extends BaseTestsForTasks {
-  protected override driver = new RealTaskDriver()
+  protected override driver = new ControllerTaskDriver()
 
   @BeforeAll()
   public beforeAll = (): Promise<void> => this.driver.beforeAll()

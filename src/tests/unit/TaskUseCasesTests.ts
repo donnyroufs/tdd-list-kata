@@ -1,14 +1,14 @@
 import { BeforeEach, Describe, Test } from "@jest-decorated/core"
 import { BaseTestsForTasks } from "../BaseTestsForTasks"
-import { FakeTaskDriver } from "../drivers/FakeTaskDriver"
+import { UseCasesTaskDriver } from "../drivers/UseCasesTaskDriver"
 
 @Describe()
 export class TaskUseCasesShould extends BaseTestsForTasks {
-  protected override driver = new FakeTaskDriver()
+  protected override driver = new UseCasesTaskDriver()
 
   @BeforeEach()
   public beforeEach(): void {
-    this.driver = new FakeTaskDriver()
+    this.driver = new UseCasesTaskDriver()
   }
 
   @Test()

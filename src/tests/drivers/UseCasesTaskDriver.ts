@@ -8,7 +8,7 @@ import { mock, MockProxy } from "jest-mock-extended"
 import { IDateService } from "../../core/IDateService"
 import { TaskDto } from "../../core/TaskDto"
 
-export class FakeTaskDriver implements ITaskDriver {
+export class UseCasesTaskDriver implements ITaskDriver {
   private readonly _createTaskUseCase: CreateTaskUseCase
   private readonly _findTasksDueTodayUseCase: FindTasksDueTodayUseCase
   private readonly _repo: FakeTaskRepository
