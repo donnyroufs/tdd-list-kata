@@ -2,7 +2,7 @@ import { Describe, Test } from "@jest-decorated/core"
 import { TaskTitle } from "../../core/TaskTitle"
 
 @Describe()
-export class TaskTitleTests {
+export class TaskTitleShould {
   @Test()
   public throwsWhenInvalidTitle(): void {
     expect(() => new TaskTitle("")).toThrowError(

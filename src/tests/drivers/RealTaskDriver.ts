@@ -66,7 +66,7 @@ export class RealTaskDriver implements ITaskDriver {
   public async beforeAll(): Promise<void> {
     const apiServer = new ApiServer()
     const repo = new TaskRepository(this._prisma)
-    const useCase = new CreateTaskUseCase(repo)
+    const useCase = new CreateTaskUseCase(repo, this._dateService)
     this._server = await apiServer.start(
       new TaskController(
         useCase,

@@ -4181,6 +4181,11 @@ ts-essentials@^7.0.3:
   resolved "https://registry.yarnpkg.com/ts-essentials/-/ts-essentials-7.0.3.tgz#686fd155a02133eedcc5362dc8b5056cde3e5a38"
   integrity sha512-8+gr5+lqO3G84KdiTSMRLtuyJ+nTBVRKuCrK4lidMPdVeEp0uqC875uE5NMcaA7YYMN7XsNiFQuMvasF8HT/xQ==
 
+ts-guard-clause@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/ts-guard-clause/-/ts-guard-clause-0.0.7.tgz#0e401e90f4b26d694c1dee8f44b3edff827ef9cd"
+  integrity sha512-9/dQQGr/kKdkbIv4FR6QZ4xyLom0y2AZQNtpH3Wg6bH8E3II+WWHXd5iikzMsYS6/HFVfgQs4OljSiEUJYlCSg==
+
 ts-jest@^28.0.8:
   version "28.0.8"
   resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-28.0.8.tgz#cd204b8e7a2f78da32cf6c95c9a6165c5b99cc73"

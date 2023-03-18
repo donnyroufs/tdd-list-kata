@@ -16,8 +16,11 @@ export class FakeTaskDriver implements ITaskDriver {
 
   public constructor() {
     this._repo = new FakeTaskRepository()
-    this._createTaskUseCase = new CreateTaskUseCase(this._repo)
     this._dateService = mock<IDateService>()
+    this._createTaskUseCase = new CreateTaskUseCase(
+      this._repo,
+      this._dateService
+    )
     this._findTasksDueTodayUseCase = new FindTasksDueTodayUseCase(
       this._repo,
       this._dateService
@@ -53,7 +56,7 @@ export class FakeTaskDriver implements ITaskDriver {
     }
   }
 
-  public async getTasksDueByDate(today: Date): Promise<TaskDto[]> {
+  public async getTasksDueByDate(): Promise<TaskDto[]> {
     return this._findTasksDueTodayUseCase.execute()
   }
 

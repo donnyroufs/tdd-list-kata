@@ -2,9 +2,9 @@ import { Describe, Test } from "@jest-decorated/core"
 import { DateRange } from "../../core/DateRange"
 
 @Describe()
-class DateRangeShould {
+export class DateRangeShould {
   @Test()
-  public shouldCreateARangeBetween0And24(): void {
+  public CreateARangeBetween0And24(): void {
     const date = new Date("02-02-2002 15:00:00")
     const range = new DateRange(date)
 
